@@ -1,1 +1,1 @@
-"print('Main branch')" 
+"print('Testing auto PR creation')" 
