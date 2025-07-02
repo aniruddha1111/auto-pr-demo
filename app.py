@@ -1,1 +1,1 @@
-"print('Hello from dev/feature1')" 
+"print('Conflicting change from dev')" 
