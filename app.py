@@ -1,1 +1,1 @@
-"print('Hello from dev/feature1')" 
+"print('Testing auto PR creation')" 
