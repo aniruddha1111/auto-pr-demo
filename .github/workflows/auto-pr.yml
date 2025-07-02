@@ -1,0 +1,33 @@
+name: Auto PR from dev/* to QA
+
+on:
+  push:
+    branches:
+      - 'dev/**'
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source branch
+      uses: actions/checkout@v3
+      with:
+        ref: ${{ github.ref }}
+
+    - name: Install GitHub CLI
+      run: sudo apt install gh -y
+
+    - name: Authenticate with PAT
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: |
+        echo "${GH_PAT}" | gh auth login --with-token
+
+    - name: Create Pull Request to QA
+      run: |
+        gh pr create \
+          --base qa \
+          --head ${{ github.ref_name }} \
+          --title "Auto PR from ${{ github.ref_name }} to QA" \
+          --body "Automated pull request triggered on push to ${{ github.ref_name }}."
